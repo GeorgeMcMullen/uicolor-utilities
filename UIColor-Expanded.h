@@ -12,6 +12,8 @@
 @property (nonatomic, readonly) CGFloat alpha;
 @property (nonatomic, readonly) UInt32 rgbHex;
 @property (nonatomic, readonly) UInt32 rgbaHex;
+@property (nonatomic, readonly) UInt32 argbHex;
+@property (nonatomic, readonly) UInt32 abgrHex;
 
 - (NSString *)colorSpaceString;
 
@@ -39,6 +41,8 @@
 - (NSString *)stringFromColor;
 - (NSString *)hexStringFromColor;
 - (NSString *)hexStringFromColorAndAlpha;
+- (NSString *)hexStringFromAlphaAndColor;
+- (NSString *)hexStringFromABGR;
 
 + (UIColor *)randomColor;
 + (UIColor *)colorWithString:(NSString *)stringToConvert;

@@ -189,6 +189,40 @@ static NSMutableDictionary *colorNameCache = nil;
 		 | (((int)roundf(b * 255))	    );
 }
 
+- (UInt32)argbHex {
+	NSAssert(self.canProvideRGBComponents, @"Must be a RGBA color to use argbHex");
+
+	CGFloat r,g,b,a;
+	if (![self red:&r green:&g blue:&b alpha:&a]) return 0;
+
+	r = MIN(MAX(self.red, 0.0f), 1.0f);
+	g = MIN(MAX(self.green, 0.0f), 1.0f);
+	b = MIN(MAX(self.blue, 0.0f), 1.0f);
+	a = MIN(MAX(self.alpha, 0.0f), 1.0f);
+
+	return (((int)roundf(a * 255)) << 24)
+         | (((int)roundf(r * 255)) << 16)
+         | (((int)roundf(g * 255)) <<  8)
+         | (((int)roundf(b * 255))	    );
+}
+
+- (UInt32)abgrHex {
+	NSAssert(self.canProvideRGBComponents, @"Must be a RGBA color to use abgrHex");
+
+	CGFloat r,g,b,a;
+	if (![self red:&r green:&g blue:&b alpha:&a]) return 0;
+
+	r = MIN(MAX(self.red, 0.0f), 1.0f);
+	g = MIN(MAX(self.green, 0.0f), 1.0f);
+	b = MIN(MAX(self.blue, 0.0f), 1.0f);
+	a = MIN(MAX(self.alpha, 0.0f), 1.0f);
+
+	return (((int)roundf(a * 255)) << 24)
+         | (((int)roundf(b * 255)) << 16)
+         | (((int)roundf(g * 255)) <<  8)
+         | (((int)roundf(r * 255))	    );
+}
+
 #pragma mark Arithmetic operations
 
 - (UIColor *)colorByLuminanceMapping {
@@ -328,6 +362,14 @@ static NSMutableDictionary *colorNameCache = nil;
 
 - (NSString *)hexStringFromColorAndAlpha {
 	return [NSString stringWithFormat:@"%0.8lX", self.rgbaHex];
+}
+
+- (NSString *)hexStringFromAlphaAndColor {
+	return [NSString stringWithFormat:@"%0.8lX", self.argbHex];
+}
+
+- (NSString *)hexStringFromABGR {
+	return [NSString stringWithFormat:@"%0.8lX", self.argbHex];
 }
 
 + (UIColor *)colorWithString:(NSString *)stringToConvert {
