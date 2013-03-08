@@ -186,7 +186,7 @@ static NSMutableDictionary *colorNameCache = nil;
 	return (((int)roundf(r * 255)) << 24)
 		 | (((int)roundf(g * 255)) << 16)
 		 | (((int)roundf(b * 255)) <<  8)
-		 | (((int)roundf(b * 255))	    );
+		 | (((int)roundf(a * 255))	    );
 }
 
 - (UInt32)argbHex {
